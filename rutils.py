@@ -732,7 +732,7 @@ def pairwise_corr_plot(corr_arr, spatial_dist_arr, i, r_range, td, date, monkey)
 	plt.tight_layout();
     
     
-def corrs_and_distances(L, m1_unit_guide, pmd_unit_guide, m1_emap, pmd_emap, metric='corr', OTHER_ARRAY_D=50):
+def compute_stat_and_phys_distances(L, m1_unit_guide, pmd_unit_guide, m1_emap, pmd_emap, OTHER_ARRAY_D=50):
     ''' Compute pairwise correlations and corresponding physical distance. 
     
     Parameters
@@ -758,7 +758,6 @@ def corrs_and_distances(L, m1_unit_guide, pmd_unit_guide, m1_emap, pmd_emap, met
     A: np array of str
         indicates to which array neuron pair belongs: 'M1', 'PMd' or '0A' if between comparison
     '''
-    
     N = L.shape[0] 
     C = [] # Correlations
     D = [] # Spatial distances
@@ -766,16 +765,10 @@ def corrs_and_distances(L, m1_unit_guide, pmd_unit_guide, m1_emap, pmd_emap, met
 
     for i in range(N):
         for j in range(i+1, N): # NO repetition
-            
-            if metric == 'euclid':
-                # Compute euclidean distance between PCs
-                ed_ij = LA.norm(L[i, :] - L[j, :])
-                C.append(ed_ij)
 
-            else:
-                # Compute correlation between PCs 
-                rho_ij, _ = stats.pearsonr(L[i, :], L[j, :])
-                C.append(rho_ij)
+            # Compute correlation or other distance metric between PCs 
+            rho_ij, _ = stats.pearsonr(L[i, :], L[j, :])
+            C.append(rho_ij)
 
             # Compute spatial distance between neurons
             if i < m1_unit_guide.shape[0] and j < m1_unit_guide.shape[0]: # If both neurons are located on M1 array (within)
