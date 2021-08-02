@@ -5,7 +5,7 @@ This file contains the steps performed to preprocess the data before applying di
 
 '''
 from pyaldata import * 
-
+warnings.simplefilter('ignore')
 
 
 def preprocess_data(session, path):
