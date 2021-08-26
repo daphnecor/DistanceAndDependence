@@ -141,9 +141,11 @@ def compute_stat_and_phys_distances(L, m1_unit_guide, pmd_unit_guide, m1_emap, p
     C = [] # Correlations
     D = [] # Spatial distances
     A = [] # On which array is the neuron pair
+    Idx = [] # Which pairwise combination
 
     for i in range(N):
         for j in range(i+1, N): # NO repetition
+            Idx.append([i,j])
 
             # Compute correlation or other distance metric between PCs 
             rho_ij, _ = stats.pearsonr(L[i, :], L[j, :])
@@ -175,5 +177,5 @@ def compute_stat_and_phys_distances(L, m1_unit_guide, pmd_unit_guide, m1_emap, p
                 D.append(OTHER_ARRAY_D)
                 A.append('OA')
 
-    return np.array(C), np.array(D), np.array(A)
+    return np.array(C), np.array(D), np.array(A), np.array(Idx)
 
