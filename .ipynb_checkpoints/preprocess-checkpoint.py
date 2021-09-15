@@ -10,11 +10,7 @@ warnings.simplefilter('ignore')
 
 def preprocess_data(session, path):
     '''
-<<<<<<< HEAD
     Preprocess the data given an experimental session located at a path.
-=======
-    Give a session preprocesses the data.
->>>>>>> bc62ae540e5f679b062e49d98b972160fb729aca
 
     Parameters
     ----------
